@@ -1,0 +1,75 @@
+# http://localhost:4000/graphql
+
+mutation {
+  CreateBook(
+    title: "Buku Tiga"
+    author: "Shidqi"
+    description: "Ini buku 3"
+    release_year: 2011
+    genre: "Sci-Fi"
+  ) {
+    title
+    author
+    release_year
+    _id
+  }
+
+  UpdateBook(_id: "663e14b0aebd28a370ba05f3", title: "Test update 1") {
+    _id
+    title
+  }
+
+  DeleteBook(_id: "663e1d426fed32c66875f185")
+
+  mutation {
+    UpdateBook(
+      _id: "663e14fbaebd28a370ba05f5"
+      reviews: [{ rating: 5, comment: "Bagus bagus" }]
+    ) {
+      _id
+      title
+      author
+      description
+      release_year
+      genre
+      reviews {
+        _id
+        rating
+        comment
+      }
+    }
+  }
+}
+
+query {
+  GetAllBooks {
+    _id
+    title
+    author
+    description
+    release_year
+    genre
+  }
+
+  GetBookByID(_id: "663e1949820b1807d896b1cc") {
+    _id
+    author
+    genre
+    description
+    release_year
+    title
+  }
+}
+
+# Query Variables
+query GetBookById($id: String) {
+  GetBookByID(_id: $id) {
+    _id
+    author
+    title
+    reviews {
+      rating
+      comment
+    }
+  }
+}
